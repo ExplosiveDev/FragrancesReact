@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { ShoppingBasket, UserIcon } from 'lucide-react';
 import SideModal from '../Sidebar/SideModal';
 import { useAppDispatch } from '../../store/store';
-import Button from '../Button/Button';
+import Button from '../Inputs/Button';
 
 
 const ToolBar: FC = () => {

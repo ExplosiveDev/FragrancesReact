@@ -3,7 +3,7 @@ import React, { useRef, useState, type FC } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 import useClickOutside from '../../hooks/useClickOutside';
 import { Search, X } from 'lucide-react';
-import Button from '../Button/Button';
+import Button from '../Inputs/Button';
 
 const transition = {
   type: 'spring',
@@ -41,7 +41,7 @@ const SearchBar: FC = () => {
               <div className='flex space-x-2'>
                 <div className='relative w-full'>
                   <input
-                    className='h-9 w-full rounded-lg border border-zinc-950/10 bg-transparent p-2 text-zinc-900 placeholder-zinc-500 focus:outline-hidden'
+                    className='h-9 w-full border-b-1 border-zinc-800 bg-transparent p-2 text-zinc-900 placeholder-zinc-500 focus:outline-hidden'
                     autoFocus
                     placeholder='Search fragrance'
                   />

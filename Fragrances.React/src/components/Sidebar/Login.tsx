@@ -1,40 +1,62 @@
-import type { FC } from "react";
+import type { FC, FormEvent } from "react";
+import { useState } from "react";
 import { useAppDispatch } from "../../store/store";
 import { changeAction } from "../../store/slices/sideBarSlice";
+import TextInput from "../Inputs/TextInput";
+import { validateEmail, validatePassword } from "../../utils/validotors";
 
 const Login: FC = () => {
-      const dispatch = useAppDispatch();
-    
-      const handleRegistrationClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const dispatch = useAppDispatch();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const isEmailValid = !validateEmail(email);
+    const isPasswordValid = !validatePassword(password);
+    const isFormValid = isEmailValid && isPasswordValid;
+
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        console.log("login");
-        dispatch(changeAction({ childrenKey: 'registration' }));
-      };
+        if (isFormValid) {
+            console.log("login with:", { email, password });
+        }
+    };
+
 
     return (
         <>
             <h2 className="text-xl font-semibold mb-4">Увійдіть</h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit} noValidate>
                 <div>
                     <label className="block text-sm mb-1">E-mail</label>
-                    <input
-                        type="email"
-                        className="w-full border border-gray-300 rounded-md px-3 py-2"
+                    <TextInput
+                        type="text"
+                        placeholder="Введіть email"
+                        validate={validateEmail}
                     />
                 </div>
                 <div>
                     <label className="block text-sm mb-1">Пароль</label>
-                    <input
+                    <TextInput
                         type="password"
-                        className="w-full border border-gray-300 rounded-md px-3 py-2"
+                        placeholder="Введіть пароль"
+                        validate={validatePassword}
                     />
                 </div>
                 <button
                     type="submit"
-                    className="w-full py-2 bg-black text-white rounded-md"
+                    className="relative w-full py-2 border border-black rounded-md overflow-hidden
+                    transition-colors duration-500 ease-in-out
+                    hover:text-white group"
                 >
-                    Увійти
+                    <span className="relative z-10">Увійти</span>
+                    <span
+                        className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0
+                         transition-transform duration-500 ease-in-out"
+                    />
                 </button>
+
+
             </form>
 
             <div className="mt-4 text-sm text-center">
@@ -45,10 +67,15 @@ const Login: FC = () => {
 
             <div className="mt-6 text-sm text-center">
                 Ви тут вперше?{" "}
-                <button className="underline text-blue-600" onClick={handleRegistrationClick}>Зареєструватися</button>
+                <button
+                    className="underline text-blue-600 hover:cursor-pointer"
+                    onClick={() => dispatch(changeAction({ childrenKey: "registration" }))}
+                >
+                    Зареєструватися
+                </button>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Login;

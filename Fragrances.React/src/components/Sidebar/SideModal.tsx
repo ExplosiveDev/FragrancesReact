@@ -5,7 +5,7 @@ import Registration from "./Registration";
 import { changeAction } from "../../store/slices/sideBarSlice";
 import Basket from "./Basket";
 import { ArrowLeft, X } from "lucide-react";
-import Button from "../Button/Button";
+import Button from "../Inputs/Button";
 
 
 
